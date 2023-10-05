@@ -1,5 +1,5 @@
 import { AnyAction } from "redux";
-import { USER_INFO } from "../actions";
+import { USER_EMAIL } from "../actions";
 
 const INITIAL_STATE = {
   email: '',
@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 const userReducer = (state = INITIAL_STATE, action: AnyAction) => {
   const { payload: email } = action;
   switch (action.type) {
-    case USER_INFO:
+    case USER_EMAIL:
       return {
         email,
       }
