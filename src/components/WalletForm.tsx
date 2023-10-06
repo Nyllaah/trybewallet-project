@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { ThunkDispatchType, GlobalStateType } from '../types';
+import { ThunkDispatchType, GlobalStateType, ExpensesType } from '../types';
 import { actionFetchCurrencies, saveExpenses, updateTotal } from '../redux/actions';
 
 function WalletForm() {
@@ -12,7 +12,7 @@ function WalletForm() {
 
   const { currencies, rates } = useSelector((state: GlobalStateType) => state.wallet);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ExpensesType>({
     id: 0,
     value: '',
     description: '',
@@ -30,7 +30,7 @@ function WalletForm() {
   const handleClick = () => {
     dispatch(actionFetchCurrencies());
     console.log(+formData.value);
-    dispatch(saveExpenses({ ...formData, value: +formData.value, exchangeRates: rates }));
+    dispatch(saveExpenses({ ...formData, value: formData.value, exchangeRates: rates }));
     dispatch(updateTotal(formData.currency, rates, +formData.value));
 
     setFormData((prevState) => ({

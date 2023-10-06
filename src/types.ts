@@ -3,7 +3,7 @@ import { ThunkDispatch } from 'redux-thunk';
 
 export type ExpensesType = {
   id: number,
-  value: number,
+  value: string,
   description: string,
   currency: string,
   method: string,
