@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { userAction } from "../redux/actions";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { userAction } from '../redux/actions';
 
 function Login() {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ function Login() {
   const [loginForm, setLoginForm] = useState({
     email: '',
     password: '',
-  })
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,9 +28,28 @@ function Login() {
 
   return (
     <form>
-      <input type="email" name="email" value={loginForm.email} onChange={handleChange} data-testid="email-input" />
-      <input type="text" name="password" value={loginForm.password} onChange={handleChange} data-testid="password-input" />
-      <button type='button' onClick={handleSubmit} disabled={!isFormValid}>Entrar</button>
+      <input
+        type="email"
+        name="email"
+        value={ loginForm.email }
+        onChange={ handleChange }
+        data-testid="email-input"
+      />
+      <input
+        type="text"
+        name="password"
+        value={ loginForm.password }
+        onChange={ handleChange }
+        data-testid="password-input"
+      />
+      <button
+        type="button"
+        onClick={ handleSubmit }
+        disabled={ !isFormValid }
+      >
+        Entrar
+
+      </button>
     </form>
   );
 }

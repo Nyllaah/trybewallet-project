@@ -1,5 +1,5 @@
-import { AnyAction } from "redux";
-import { ThunkDispatch } from "redux-thunk";
+import { AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 
 export type ExpensesType = {
   id: number,
@@ -8,7 +8,7 @@ export type ExpensesType = {
   currency: string,
   method: string,
   tag: string,
-  exchangeRates: {},
+  exchangeRates: object,
 };
 
 export type GlobalStateType = {
@@ -18,7 +18,7 @@ export type GlobalStateType = {
   wallet: {
     isLoading: boolean,
     currencies: [],
-    rates: {},
+    rates: object,
     expenses: ExpensesType[],
     total: number,
   },

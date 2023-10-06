@@ -1,9 +1,11 @@
-import { useSelector } from "react-redux";
-import WalletForm from "../components/WalletForm";
-import { GlobalStateType } from "../types";
+import { useSelector } from 'react-redux';
+import WalletForm from '../components/WalletForm';
+import { GlobalStateType } from '../types';
 
 function Wallet() {
-  const { user: { email }, wallet: { total } } = useSelector((state: GlobalStateType) => state);
+  const {
+    user: { email }, wallet: { total },
+  } = useSelector((state: GlobalStateType) => state);
 
   return (
     <>
@@ -14,7 +16,7 @@ function Wallet() {
         <span data-testid="header-currency-field">BRL</span>
       </header>
       <main>
-        < WalletForm />
+        <WalletForm />
       </main>
     </>
   );

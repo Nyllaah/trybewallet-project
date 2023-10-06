@@ -37,12 +37,12 @@ const walletReducer = (state = INITIAL_STATE, action: AnyAction) => {
       };
 
     case UPDATE_TOTAL:
-      // eslint-disable-next-line no-case-declarations
-      const { currency, rates, value } = action.payload;
-
       return {
         ...state,
-        total: state.total + Number((value * rates[currency].ask).toFixed(2)),
+        total: state.total + Number(
+          (action.payload.value * action.payload.rates[action.payload.currency].ask)
+            .toFixed(2),
+        ),
       };
 
     default:

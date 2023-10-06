@@ -1,5 +1,5 @@
-import { AnyAction } from "redux";
-import { USER_EMAIL } from "../actions";
+import { AnyAction } from 'redux';
+import { USER_EMAIL } from '../actions';
 
 const INITIAL_STATE = {
   email: '',
@@ -11,7 +11,7 @@ const userReducer = (state = INITIAL_STATE, action: AnyAction) => {
     case USER_EMAIL:
       return {
         email,
-      }
+      };
     default:
       return state;
   }
