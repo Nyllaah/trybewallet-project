@@ -45,7 +45,7 @@ function WalletForm() {
   };
 
   return (
-    <form>
+    <form data-testid="wallet-form">
       <input
         type="number"
         data-testid="value-input"
@@ -76,6 +76,7 @@ function WalletForm() {
           <option
             key={ currency }
             value={ currency }
+            data-testid="currency-option"
           >
             {currency}
 
@@ -92,9 +93,27 @@ function WalletForm() {
         onChange={ handleChange }
       >
 
-        <option value="Dinheiro">Dinheiro</option>
-        <option value="Cartão de crédito">Cartão de crédito</option>
-        <option value="Cartão de débito">Cartão de débito</option>
+        <option
+          value="Dinheiro"
+          data-testid="method-option"
+        >
+          Dinheiro
+
+        </option>
+        <option
+          value="Cartão de crédito"
+          data-testid="method-option"
+        >
+          Cartão de crédito
+
+        </option>
+        <option
+          value="Cartão de débito"
+          data-testid="method-option"
+        >
+          Cartão de débito
+
+        </option>
 
       </select>
 
@@ -106,11 +125,11 @@ function WalletForm() {
         onChange={ handleChange }
       >
 
-        <option value="Alimentação">Alimentação</option>
-        <option value="Lazer">Lazer</option>
-        <option value="Trabalho">Trabalho</option>
-        <option value="Transporte">Transporte</option>
-        <option value="Saúde">Saúde</option>
+        <option value="Alimentação" data-testid="tag-option">Alimentação</option>
+        <option value="Lazer" data-testid="tag-option">Lazer</option>
+        <option value="Trabalho" data-testid="tag-option">Trabalho</option>
+        <option value="Transporte" data-testid="tag-option">Transporte</option>
+        <option value="Saúde" data-testid="tag-option">Saúde</option>
 
       </select>
 

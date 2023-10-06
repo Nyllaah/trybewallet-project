@@ -34,6 +34,7 @@ function Login() {
         value={ loginForm.email }
         onChange={ handleChange }
         data-testid="email-input"
+        placeholder="Email"
       />
       <input
         type="text"
@@ -41,6 +42,7 @@ function Login() {
         value={ loginForm.password }
         onChange={ handleChange }
         data-testid="password-input"
+        placeholder="Senha"
       />
       <button
         type="button"

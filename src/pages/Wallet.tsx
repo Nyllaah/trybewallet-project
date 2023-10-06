@@ -1,20 +1,10 @@
-import { useSelector } from 'react-redux';
 import WalletForm from '../components/WalletForm';
-import { GlobalStateType } from '../types';
+import Header from '../components/Header';
 
 function Wallet() {
-  const {
-    user: { email }, wallet: { total },
-  } = useSelector((state: GlobalStateType) => state);
-
   return (
     <>
-      <header>
-        <span data-testid="email-field">{`Email: ${email}`}</span>
-        <span>Despesa total:</span>
-        <span data-testid="total-field">{total}</span>
-        <span data-testid="header-currency-field">BRL</span>
-      </header>
+      <Header />
       <main>
         <WalletForm />
       </main>
