@@ -1,14 +1,15 @@
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
+import { ExchangeRatesContent, ExchangeRatesKeys } from './tests/helpers/mockData';
 
 export type ExpensesType = {
   id: number,
   value: string,
   description: string,
-  currency: string,
+  currency: ExchangeRatesKeys,
   method: string,
   tag: string,
-  exchangeRates: object,
+  exchangeRates: ExchangeRatesContent,
 };
 
 export type GlobalStateType = {
@@ -17,7 +18,7 @@ export type GlobalStateType = {
   },
   wallet: {
     isLoading: boolean,
-    currencies: [],
+    currencies: ExchangeRatesKeys[],
     rates: object,
     expenses: ExpensesType[],
     total: number,

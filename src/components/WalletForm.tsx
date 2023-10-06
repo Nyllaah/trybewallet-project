@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { ThunkDispatchType, GlobalStateType, ExpensesType } from '../types';
 import { actionFetchCurrencies, saveExpenses, updateTotal } from '../redux/actions';
+import { ExchangeRatesContent } from '../tests/helpers/mockData';
 
 function WalletForm() {
   const dispatch: ThunkDispatchType = useDispatch();
@@ -19,7 +20,7 @@ function WalletForm() {
     currency: 'USD',
     method: 'Dinheiro',
     tag: 'Alimentação',
-    exchangeRates: {},
+    exchangeRates: {} as ExchangeRatesContent,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -29,9 +30,8 @@ function WalletForm() {
 
   const handleClick = () => {
     dispatch(actionFetchCurrencies());
-    console.log(+formData.value);
     dispatch(saveExpenses({ ...formData, value: formData.value, exchangeRates: rates }));
-    dispatch(updateTotal(formData.currency, rates, +formData.value));
+    dispatch(updateTotal());
 
     setFormData((prevState) => ({
       id: prevState.id + 1,
@@ -47,7 +47,7 @@ function WalletForm() {
   return (
     <form data-testid="wallet-form">
       <input
-        type="number"
+        type="text"
         data-testid="value-input"
         name="value"
         placeholder="Valor"

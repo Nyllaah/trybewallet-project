@@ -9,6 +9,7 @@ export const RECEIVE_CURRENCIES_FAILED = 'REVEICE_CURRENCIES_FAILED';
 export const SAVE_EXPENSES = 'SVAE_EXPENSES';
 export const UPDATE_TOTAL = 'UPDATE_TOTAL';
 export const FETCH_RATES = 'FETCH_RATES';
+export const UPDATE_EXPENSES = 'UPDATE_EXPENSES';
 
 export const userAction = (email: string) => ({
   type: USER_EMAIL,
@@ -51,11 +52,27 @@ export const saveExpenses = (expenses: ExpensesType) => ({
   },
 });
 
-export const updateTotal = (currency: string, rates: object, value: number) => ({
+// export const updateTotal = (currency: string, rates: object, value: number) => ({
+//   type: UPDATE_TOTAL,
+//   payload: {
+//     currency,
+//     rates,
+//     value,
+//   },
+// });
+// export const updateTotal = (expenses: ExpensesType[]) => ({
+//   type: UPDATE_TOTAL,
+//   payload: {
+//     expenses,
+//   },
+// });
+export const updateTotal = () => ({
   type: UPDATE_TOTAL,
+});
+
+export const updateExpenses = (expenses: ExpensesType[]) => ({
+  type: UPDATE_EXPENSES,
   payload: {
-    currency,
-    rates,
-    value,
+    expenses,
   },
 });

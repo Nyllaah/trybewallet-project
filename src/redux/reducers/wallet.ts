@@ -3,13 +3,15 @@ import {
   RECEIVE_CURRENCIES_FAILED,
   RECEIVE_CURRENCIES_SUCCEEDED,
   REQUEST_CURRENCIES, SAVE_EXPENSES,
+  UPDATE_EXPENSES,
   UPDATE_TOTAL,
 } from '../actions';
+import { ExpensesType } from '../../types';
 
 const INITIAL_STATE = {
   currencies: [],
   isLoading: false,
-  expenses: [],
+  expenses: [] as ExpensesType[],
   total: 0,
   rates: {},
 };
@@ -39,10 +41,15 @@ const walletReducer = (state = INITIAL_STATE, action: AnyAction) => {
     case UPDATE_TOTAL:
       return {
         ...state,
-        total: state.total + Number(
-          (action.payload.value * action.payload.rates[action.payload.currency].ask)
-            .toFixed(2),
-        ),
+        total: state.expenses.reduce((acc, curr) => {
+          return acc + (+curr.value * +curr.exchangeRates[curr.currency].ask);
+        }, 0).toFixed(2),
+      };
+
+    case UPDATE_EXPENSES:
+      return {
+        ...state,
+        expenses: action.payload.expenses,
       };
 
     default:

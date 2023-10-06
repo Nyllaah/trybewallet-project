@@ -209,4 +209,6 @@ const mockData = {
   },
 };
 
+export type ExchangeRatesKeys = keyof typeof mockData;
+export type ExchangeRatesContent = typeof mockData;
 export default mockData;
