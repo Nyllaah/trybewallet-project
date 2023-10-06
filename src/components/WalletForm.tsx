@@ -1,14 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { ThunkDispatchType, GlobalStateType, ExpensesType } from "../types";
-import { actionFetchCurrencies, saveExpenses, updateTotal } from "../redux/actions";
-import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { ThunkDispatchType, GlobalStateType } from '../types';
+import { actionFetchCurrencies, saveExpenses, updateTotal } from '../redux/actions';
 
 function WalletForm() {
   const dispatch: ThunkDispatchType = useDispatch();
 
   useEffect(() => {
     dispatch(actionFetchCurrencies());
-  }, []);
+  }, [dispatch]);
 
   const { currencies, rates } = useSelector((state: GlobalStateType) => state.wallet);
 
@@ -24,7 +24,7 @@ function WalletForm() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value })
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleClick = () => {
@@ -51,8 +51,8 @@ function WalletForm() {
         data-testid="value-input"
         name="value"
         placeholder="Valor"
-        value={formData.value}
-        onChange={handleChange}
+        value={ formData.value }
+        onChange={ handleChange }
       />
 
       <input
@@ -60,18 +60,27 @@ function WalletForm() {
         data-testid="description-input"
         name="description"
         placeholder="Descrição"
-        value={formData.description}
-        onChange={handleChange}
+        value={ formData.description }
+        onChange={ handleChange }
       />
 
       <select
         name="currency"
         id="currency-input"
         data-testid="currency-input"
-        value={formData.currency}
-        onChange={handleChange}>
+        value={ formData.currency }
+        onChange={ handleChange }
+      >
 
-        {currencies.map((currency) => <option key={currency} value={currency}>{currency}</option>)}
+        {currencies.map((currency) => (
+          <option
+            key={ currency }
+            value={ currency }
+          >
+            {currency}
+
+          </option>
+        ))}
 
       </select>
 
@@ -79,8 +88,9 @@ function WalletForm() {
         name="method"
         id="method-input"
         data-testid="method-input"
-        value={formData.method}
-        onChange={handleChange}>
+        value={ formData.method }
+        onChange={ handleChange }
+      >
 
         <option value="Dinheiro">Dinheiro</option>
         <option value="Cartão de crédito">Cartão de crédito</option>
@@ -92,8 +102,9 @@ function WalletForm() {
         name="tag"
         id="tag-input"
         data-testid="tag-input"
-        value={formData.tag}
-        onChange={handleChange}>
+        value={ formData.tag }
+        onChange={ handleChange }
+      >
 
         <option value="Alimentação">Alimentação</option>
         <option value="Lazer">Lazer</option>
@@ -103,7 +114,7 @@ function WalletForm() {
 
       </select>
 
-      <button type="button" onClick={handleClick}>Adicionar despesa</button>
+      <button type="button" onClick={ handleClick }>Adicionar despesa</button>
     </form>
   );
 }

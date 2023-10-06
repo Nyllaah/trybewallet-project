@@ -1,6 +1,6 @@
-import { Dispatch } from "redux";
-import getCurrencies from "../../services/currenciesAPI";
-import { ExpensesType } from "../../types";
+import { Dispatch } from 'redux';
+import getCurrencies from '../../services/currenciesAPI';
+import { ExpensesType } from '../../types';
 
 export const USER_EMAIL = 'USER_INFO';
 export const REQUEST_CURRENCIES = 'REQUEST_CURRENCIES';
@@ -19,7 +19,7 @@ export const requestCurrencies = () => ({
   type: REQUEST_CURRENCIES,
 });
 
-export const receiveCurrenciesSucceeded = (currencies: {}) => ({
+export const receiveCurrenciesSucceeded = (currencies: object) => ({
   type: RECEIVE_CURRENCIES_SUCCEEDED,
   payload: {
     currencies,
@@ -40,7 +40,7 @@ export const actionFetchCurrencies = () => {
     } catch (error) {
       console.log(error);
       dispatch(receiveCurrenciesFailed());
-    };
+    }
   };
 };
 
@@ -51,11 +51,11 @@ export const saveExpenses = (expenses: ExpensesType) => ({
   },
 });
 
-export const updateTotal = (currency: string, rates: {}, value: number) => ({
+export const updateTotal = (currency: string, rates: object, value: number) => ({
   type: UPDATE_TOTAL,
   payload: {
     currency,
     rates,
-    value
+    value,
   },
 });

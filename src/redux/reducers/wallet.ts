@@ -1,5 +1,10 @@
-import { AnyAction } from "redux";
-import { RECEIVE_CURRENCIES_FAILED, RECEIVE_CURRENCIES_SUCCEEDED, REQUEST_CURRENCIES, SAVE_EXPENSES, UPDATE_TOTAL } from "../actions";
+import { AnyAction } from 'redux';
+import {
+  RECEIVE_CURRENCIES_FAILED,
+  RECEIVE_CURRENCIES_SUCCEEDED,
+  REQUEST_CURRENCIES, SAVE_EXPENSES,
+  UPDATE_TOTAL,
+} from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -11,7 +16,7 @@ const INITIAL_STATE = {
 
 const walletReducer = (state = INITIAL_STATE, action: AnyAction) => {
   switch (action.type) {
-    case REQUEST_CURRENCIES:
+    case REQUEST_CURRENCIES || RECEIVE_CURRENCIES_FAILED:
       return {
         ...state,
         isLoading: true,
@@ -25,12 +30,6 @@ const walletReducer = (state = INITIAL_STATE, action: AnyAction) => {
         rates: action.payload.currencies,
       };
 
-    case RECEIVE_CURRENCIES_FAILED:
-      return {
-        ...state,
-        isLoading: true,
-      };
-
     case SAVE_EXPENSES:
       return {
         ...state,
@@ -38,6 +37,7 @@ const walletReducer = (state = INITIAL_STATE, action: AnyAction) => {
       };
 
     case UPDATE_TOTAL:
+      // eslint-disable-next-line no-case-declarations
       const { currency, rates, value } = action.payload;
 
       return {
