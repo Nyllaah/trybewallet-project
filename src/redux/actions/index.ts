@@ -35,6 +35,7 @@ export const actionFetchCurrencies = () => {
     dispatch(requestCurrencies());
     try {
       const currencies = await getCurrencies();
+      delete currencies.USDT;
       dispatch(receiveCurrenciesSucceeded(currencies));
     } catch (error) {
       console.log(error);
@@ -43,10 +44,18 @@ export const actionFetchCurrencies = () => {
   };
 };
 
-export const saveExpenses = (expenses: ExpensesType, total: number) => ({
+export const saveExpenses = (expenses: ExpensesType) => ({
   type: SAVE_EXPENSES,
   payload: {
     expenses,
-    total,
+  },
+});
+
+export const updateTotal = (currency: string, rates: {}, value: number) => ({
+  type: UPDATE_TOTAL,
+  payload: {
+    currency,
+    rates,
+    value
   },
 });

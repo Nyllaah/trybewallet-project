@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { ThunkDispatchType, GlobalStateType, ExpensesType } from "../types";
-import { actionFetchCurrencies, saveExpenses } from "../redux/actions";
+import { actionFetchCurrencies, saveExpenses, updateTotal } from "../redux/actions";
 import { useEffect, useState } from "react";
 
 function WalletForm() {
@@ -12,14 +12,14 @@ function WalletForm() {
 
   const { currencies, rates } = useSelector((state: GlobalStateType) => state.wallet);
 
-  const [formData, setFormData] = useState<ExpensesType>({
+  const [formData, setFormData] = useState({
     id: 0,
-    value: 0.00,
+    value: '',
     description: '',
     currency: 'USD',
     method: 'Dinheiro',
     tag: 'Alimentação',
-    exchangeRates: rates,
+    exchangeRates: {},
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -29,11 +29,13 @@ function WalletForm() {
 
   const handleClick = () => {
     dispatch(actionFetchCurrencies());
+    console.log(+formData.value);
+    dispatch(saveExpenses({ ...formData, value: +formData.value, exchangeRates: rates }));
+    dispatch(updateTotal(formData.currency, rates, +formData.value));
 
-    dispatch(saveExpenses(formData, Number(formData.value)));
     setFormData((prevState) => ({
       id: prevState.id + 1,
-      value: 0.00,
+      value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
@@ -50,7 +52,8 @@ function WalletForm() {
         name="value"
         placeholder="Valor"
         value={formData.value}
-        onChange={handleChange} />
+        onChange={handleChange}
+      />
 
       <input
         type="text"
@@ -58,7 +61,8 @@ function WalletForm() {
         name="description"
         placeholder="Descrição"
         value={formData.description}
-        onChange={handleChange} />
+        onChange={handleChange}
+      />
 
       <select
         name="currency"
@@ -67,8 +71,7 @@ function WalletForm() {
         value={formData.currency}
         onChange={handleChange}>
 
-        {currencies.map((currency) => currency !== 'USDT'
-          && <option key={currency} value={currency}>{currency}</option>)}
+        {currencies.map((currency) => <option key={currency} value={currency}>{currency}</option>)}
 
       </select>
 
