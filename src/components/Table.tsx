@@ -33,6 +33,7 @@ function Table() {
           const currencies = Object.values(expense.exchangeRates);
           const rate = currencies.find((curr) => curr.code === expense.currency);
 
+          if (!rate) return <span>Lista vazia</span>;
           return (
             <tr key={ expense.id }>
               <td>{expense.description}</td>

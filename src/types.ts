@@ -19,7 +19,7 @@ export type GlobalStateType = {
   wallet: {
     isLoading: boolean,
     currencies: ExchangeRatesKeys[],
-    rates: object,
+    rates: ExchangeRatesContent,
     expenses: ExpensesType[],
     total: number,
   },

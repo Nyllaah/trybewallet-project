@@ -7,13 +7,14 @@ import {
   UPDATE_TOTAL,
 } from '../actions';
 import { ExpensesType } from '../../types';
+import { ExchangeRatesContent } from '../../tests/helpers/mockData';
 
 const INITIAL_STATE = {
   currencies: [],
   isLoading: false,
   expenses: [] as ExpensesType[],
   total: 0,
-  rates: {},
+  rates: {} as ExchangeRatesContent,
 };
 
 const walletReducer = (state = INITIAL_STATE, action: AnyAction) => {

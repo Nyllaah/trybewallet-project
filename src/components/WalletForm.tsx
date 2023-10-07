@@ -40,7 +40,7 @@ function WalletForm() {
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-      exchangeRates: {},
+      exchangeRates: {} as ExchangeRatesContent,
     }));
   };
 
