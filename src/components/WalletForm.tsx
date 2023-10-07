@@ -87,7 +87,7 @@ function WalletForm() {
         type="text"
         data-testid="value-input"
         name="value"
-        placeholder={ editor ? expenses[idToEdit].value : 'Valor' }
+        placeholder="Valor"
         value={ formData.value }
         onChange={ handleChange }
       />
@@ -96,7 +96,7 @@ function WalletForm() {
         type="text"
         data-testid="description-input"
         name="description"
-        placeholder={ editor ? expenses[idToEdit].description : 'Descrição' }
+        placeholder="Descrição"
         value={ formData.description }
         onChange={ handleChange }
       />
