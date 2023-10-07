@@ -22,6 +22,8 @@ export type GlobalStateType = {
     rates: ExchangeRatesContent,
     expenses: ExpensesType[],
     total: number,
+    editor: boolean,
+    idToEdit: number,
   },
 };
 

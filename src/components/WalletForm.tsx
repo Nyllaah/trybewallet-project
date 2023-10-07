@@ -11,7 +11,15 @@ function WalletForm() {
     dispatch(actionFetchCurrencies());
   }, [dispatch]);
 
-  const { currencies, rates } = useSelector((state: GlobalStateType) => state.wallet);
+  const {
+    currencies,
+    expenses,
+    rates,
+    editor,
+    idToEdit,
+  } = useSelector((state: GlobalStateType) => state.wallet);
+
+  const alimentacao = 'Alimentação';
 
   const [formData, setFormData] = useState<ExpensesType>({
     id: 0,
@@ -19,9 +27,23 @@ function WalletForm() {
     description: '',
     currency: 'USD',
     method: 'Dinheiro',
-    tag: 'Alimentação',
+    tag: alimentacao,
     exchangeRates: {} as ExchangeRatesContent,
   });
+
+  useEffect(() => {
+    if (editor) {
+      setFormData({
+        id: idToEdit,
+        value: expenses[idToEdit].value,
+        description: expenses[idToEdit].description,
+        currency: expenses[idToEdit].currency,
+        method: expenses[idToEdit].method,
+        tag: expenses[idToEdit].tag,
+        exchangeRates: expenses[idToEdit].exchangeRates,
+      });
+    }
+  }, [editor, expenses, idToEdit]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -30,7 +52,7 @@ function WalletForm() {
 
   const handleClick = () => {
     dispatch(actionFetchCurrencies());
-    dispatch(saveExpenses({ ...formData, value: formData.value, exchangeRates: rates }));
+    dispatch(saveExpenses({ ...formData, exchangeRates: rates }));
     dispatch(updateTotal());
 
     setFormData((prevState) => ({
@@ -39,7 +61,22 @@ function WalletForm() {
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: 'Alimentação',
+      tag: alimentacao,
+      exchangeRates: {} as ExchangeRatesContent,
+    }));
+  };
+
+  const handleSaveChanges = () => {
+    dispatch(saveExpenses(formData));
+    dispatch(updateTotal());
+
+    setFormData((prevState) => ({
+      id: prevState.id + 1,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: alimentacao,
       exchangeRates: {} as ExchangeRatesContent,
     }));
   };
@@ -50,7 +87,7 @@ function WalletForm() {
         type="text"
         data-testid="value-input"
         name="value"
-        placeholder="Valor"
+        placeholder={ editor ? expenses[idToEdit].value : 'Valor' }
         value={ formData.value }
         onChange={ handleChange }
       />
@@ -59,7 +96,7 @@ function WalletForm() {
         type="text"
         data-testid="description-input"
         name="description"
-        placeholder="Descrição"
+        placeholder={ editor ? expenses[idToEdit].description : 'Descrição' }
         value={ formData.description }
         onChange={ handleChange }
       />
@@ -132,8 +169,9 @@ function WalletForm() {
         <option value="Saúde" data-testid="tag-option">Saúde</option>
 
       </select>
-
-      <button type="button" onClick={ handleClick }>Adicionar despesa</button>
+      {editor
+        ? <button type="button" onClick={ handleSaveChanges }>Editar despesa</button>
+        : <button type="button" onClick={ handleClick }>Adicionar despesa</button>}
     </form>
   );
 }

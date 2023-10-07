@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { GlobalStateType } from '../types';
-import { updateExpenses, updateTotal } from '../redux/actions';
+import { editMode, updateExpenses, updateTotal } from '../redux/actions';
 
 function Table() {
   const dispatch = useDispatch();
@@ -11,6 +11,10 @@ function Table() {
 
     dispatch(updateExpenses(newExpenses));
     dispatch(updateTotal());
+  };
+
+  const handleEditMode = (idToEdit: number) => {
+    dispatch(editMode(idToEdit));
   };
 
   return (
@@ -45,7 +49,14 @@ function Table() {
               <td>{(+expense.value * +rate.ask).toFixed(2)}</td>
               <td>Real</td>
               <td>
-                <button>Editar</button>
+                <button
+                  type="button"
+                  data-testid="edit-btn"
+                  onClick={ () => handleEditMode(expense.id) }
+                >
+                  Editar
+
+                </button>
                 <button
                   type="button"
                   data-testid="delete-btn"

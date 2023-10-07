@@ -1,5 +1,6 @@
 import { AnyAction } from 'redux';
 import {
+  EDIT_MODE,
   RECEIVE_CURRENCIES_FAILED,
   RECEIVE_CURRENCIES_SUCCEEDED,
   REQUEST_CURRENCIES, SAVE_EXPENSES,
@@ -15,6 +16,8 @@ const INITIAL_STATE = {
   expenses: [] as ExpensesType[],
   total: 0,
   rates: {} as ExchangeRatesContent,
+  editor: false,
+  idToEdit: undefined,
 };
 
 const walletReducer = (state = INITIAL_STATE, action: AnyAction) => {
@@ -36,7 +39,12 @@ const walletReducer = (state = INITIAL_STATE, action: AnyAction) => {
     case SAVE_EXPENSES:
       return {
         ...state,
-        expenses: [...state.expenses, action.payload.expenses],
+        expenses: [
+          ...state.expenses.filter((expense) => expense.id !== state.idToEdit),
+          action.payload.expenses],
+        editor: false,
+        idToEdit: undefined,
+        // expenses: [...state.expenses, action.payload.expenses],
       };
 
     case UPDATE_TOTAL:
@@ -51,6 +59,13 @@ const walletReducer = (state = INITIAL_STATE, action: AnyAction) => {
       return {
         ...state,
         expenses: action.payload.expenses,
+      };
+
+    case EDIT_MODE:
+      return {
+        ...state,
+        editor: true,
+        idToEdit: action.payload.idToEdit,
       };
 
     default:
